@@ -1,0 +1,68 @@
+{%load static%}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{% block title %} BASE{% endblock title %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css'%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyA80S1z1khoNwoUj0OGI7WqU1DIaLQbm" crossorigin="anonymous">
+
+    <style>
+      
+      .table {
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heading-container text-center">
+      <h1>Student Management System</h1>
+    </div>
+    <br>
+    <br>
+    
+
+    {% block main_content %}
+    <div class="container mt-10">
+      <table class="table mt-4 mx-auto">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Roll</th>
+            <th scope="col">City</th>
+            <th scope="col">Actions</th>
+          </tr>
+          
+        </thead>
+        <tbody>
+          {% for st in std %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ st.name }}</td>
+            <td>{{ st.roll }}</td>
+            <td>{{ st.city }}</td>
+            <td><a class="btn btn-info btn-sm" href="{% url 'edit' id=st.id %}">Edit</a></td>
+            <td>
+              <form action="{% url 'delete' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ st.id }}">
+                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+          <td><a class="btn btn-primary"href="{% url 'add' %}">Add</a></td>
+
+        </tbody>    
+      </table>
+    </div>
+    <div class="heading-container text-center">
+    </div>
+    {% endblock main_content %}
+  </body>
+</html>

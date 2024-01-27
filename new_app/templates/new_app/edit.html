@@ -1,0 +1,13 @@
+{% extends 'new_app/base.html'%}
+<title>{% block title %} EDIT STUDENT {% endblock title %}</title>
+<body>
+    {% block main_content %}
+    <div class="form-group">
+        <form action="" method="POST" class="col-sm-4 mx-auto">
+            {% csrf_token %}
+            {{ fm.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    {% endblock main_content %}
+</body>
